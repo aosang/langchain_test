@@ -39,11 +39,11 @@ const agentStream = await agent.stream(
   { configurable: {thread_id: '1'}, streamMode: 'messages' }
 )
 
-let hasStartedOutput = false;
+let hasStartedOutput = false
 
 for await (const messageArray of agentStream) {
   // messageArray[0] 是消息对象，messageArray[1] 是元数据
-  const message = messageArray[0];
+  const message = messageArray[0]
   
   if (message && message.content) {
     // 只输出AI的最终回答（AIMessage类型且没有tool_calls）
@@ -53,15 +53,15 @@ for await (const messageArray of agentStream) {
       // 第一次输出时清除查询中提示
       if (!hasStartedOutput) {
         console.clear(); // 清除控制台
-        hasStartedOutput = true;
+        hasStartedOutput = true
       }
       
       // 逐行输出最终回答
-      const lines = message.content.split('\n');
+      const lines = message.content.split('\n')
       for (const line of lines) {
-        console.log(line);
+        console.log(line)
         // 减少延迟来提升响应速度
-        await new Promise(resolve => setTimeout(resolve, 50));
+        await new Promise(resolve => setTimeout(resolve, 50))
       }
     }
   }
